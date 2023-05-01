@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Scene_Franclei.unity
+- path: Assets/Scenes/Scene_Pedro.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
