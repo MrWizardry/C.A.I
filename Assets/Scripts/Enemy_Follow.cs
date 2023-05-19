@@ -1,65 +1,51 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy_Follow : MonoBehaviour
 {
-    public NavMeshAgent agent;
-
     public Transform player;
+    private NavMeshAgent _agent;
+    public float _sightRange = 10f;
+    private Vector3 _startPos;
+    private bool _hasReachedPlayer = false;
+    private bool _canSeePlayer = false;
 
-    public LayerMask whatsisground, whatsisplayer;
-
-    //patrol
-    public Vector3 walkpoint;
-    bool walkpointSet;
-    public float walkPointRange;
-
-    //states
-    public float SightRange;
-    public bool playerInSight;
-    private void Awake()
+    private void Start()
     {
-        player = GameObject.Find("ThirdPesronPlayer").transform;
-        agent = GetComponent<NavMeshAgent>();
+        _agent = GetComponent<NavMeshAgent>();
+        _startPos = transform.position;
     }
 
     private void Update()
     {
-        playerInSight = Physics.CheckSphere(transform.position, SightRange, whatsisplayer);
-
-        if (!playerInSight) Patrolling();
-        if (playerInSight) ChasePlayer();
-    }
-
-    private void Patrolling()
-    {
-        if (!walkpointSet) SearchWalkPoint();
-
-        if (walkpointSet)
-            agent.SetDestination(walkpoint);
-
-        Vector3 distanceToWalkPoint = transform.position - walkpoint;
-
-        if (distanceToWalkPoint.magnitude < 1f)
-            walkpointSet = false;
-    }
-    private void SearchWalkPoint()
-    {
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
-
-        walkpoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-
-        if(Physics.Raycast(walkpoint, -transform.up, 2f, whatsisground))
+        if (_canSeePlayer)
         {
-            walkpointSet = true;
+            _agent.SetDestination(player.position);
+            _hasReachedPlayer = true;
+        }
+        else if (_hasReachedPlayer)
+        {
+            _agent.SetDestination(_startPos);
         }
     }
 
-    private void ChasePlayer()
+    private void OnTriggerEnter(Collider other)
     {
-        agent.SetDestination(player.position);
+        if (other.CompareTag("Player"))
+        {
+            _canSeePlayer = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            _canSeePlayer = false;
+        }
     }
 }
