@@ -9,7 +9,6 @@ public class Enemy_Follow : MonoBehaviour
 {
     public Transform player;
     private NavMeshAgent _agent;
-    public float _sightRange = 10f;
     private Vector3 _startPos;
     private bool _hasReachedPlayer = false;
     private bool _canSeePlayer = false;
