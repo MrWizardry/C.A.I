@@ -6,6 +6,7 @@ public class ThirdPersonMovement : MonoBehaviour
 {
     public CharacterController controller;
     public Transform cam;
+    public Animator animator;
     
 
     [SerializeField] private float speed = 6f;
@@ -34,7 +35,14 @@ public class ThirdPersonMovement : MonoBehaviour
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * (speed * Time.deltaTime));
+            
+            animator.SetBool("IsWalking", true);
         }
+        else
+            animator.SetBool("IsWalking", false);
+        
+        
+        
         //----------------- Mouse ------------------------//
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
