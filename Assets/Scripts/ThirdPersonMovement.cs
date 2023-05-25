@@ -1,30 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
     public CharacterController controller;
     public Transform cam;
     public Animator animator;
-    
+    public Slider staminaSlider;
+
     [Header("Movement")]
-    [SerializeField] private float movementSpeed = 6f;
+    [SerializeField] private float walkSpeed = 6f;
+    [SerializeField] private float runSpeed = 10f;
     [SerializeField] private float turnSmoothTime = 0.1f;
-    [SerializeField] private float sensivity = 1f;
+    [SerializeField] private float sensitivity = 1f;
     [SerializeField] private float cameraSensitivity = 3f;
 
+    [Header("Stamina")]
+    [SerializeField] private float maxStamina = 100f;
+    [SerializeField] private float staminaConsumptionRate = 10f;
+    [SerializeField] private float staminaRegenerationRate = 5f;
+
     private float turnSmoothVelocity;
+    private bool isRunning = false;
+    private float currentStamina;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        currentStamina = maxStamina;
+        
+        UpdateStaminaSlider();
     }
 
-    void Update()
+    private void Update()
     {
         HandleInput();
+        UpdateStamina();
+        UpdateStaminaSlider();
     }
 
     private void HandleInput()
@@ -41,10 +56,27 @@ public class ThirdPersonMovement : MonoBehaviour
             animator.SetBool("IsWalking", true);
         }
         else
+        {
             animator.SetBool("IsWalking", false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && currentStamina > 0)
+        {
+            isRunning = true;
+            //animator.SetBool("IsRunning", true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift) || currentStamina <= 0)
+        {
+            isRunning = false;
+            Debug.Log("No Energy");
+            //animator.SetBool("IsRunning", false);
+        }
 
         if (Input.GetKeyDown(KeyCode.G))
+        {
             Application.Quit();
+        }
     }
 
     private void RotatePlayer(Vector3 direction)
@@ -63,9 +95,31 @@ public class ThirdPersonMovement : MonoBehaviour
 
     private void MovePlayer(Vector3 direction)
     {
-        Vector3 moveDir = Quaternion.Euler(0f, cam.eulerAngles.y, 0f) * Vector3.forward;
-        controller.Move(moveDir.normalized * (movementSpeed * Time.deltaTime * sensivity));
+        float currentSpeed = isRunning ? runSpeed : walkSpeed;
+
+        Vector3 moveDir = Quaternion.Euler(0f, cam.eulerAngles.y, 0f) * direction;
+        controller.Move(moveDir.normalized * (currentSpeed * Time.deltaTime * sensitivity));
     }
 
-    
+    private void UpdateStamina()
+    {
+        if (isRunning && currentStamina > 0)
+        {
+            currentStamina -= staminaConsumptionRate * Time.deltaTime;
+            currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
+        }
+        else if (!isRunning && currentStamina < maxStamina)
+        {
+            currentStamina += staminaRegenerationRate * Time.deltaTime;
+            currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
+        }
+    }
+
+    private void UpdateStaminaSlider()
+    {
+        float normalizedStamina = currentStamina / maxStamina;
+        staminaSlider.value = normalizedStamina;
+    }
+
+
 }
