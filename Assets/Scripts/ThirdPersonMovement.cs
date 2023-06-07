@@ -63,14 +63,14 @@ public class ThirdPersonMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && currentStamina > 0)
         {
             isRunning = true;
-            //animator.SetBool("IsRunning", true);
+            animator.SetBool("IsRunning", true);
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift) || currentStamina <= 0)
         {
             isRunning = false;
             Debug.Log("No Energy");
-            //animator.SetBool("IsRunning", false);
+            animator.SetBool("IsRunning", false);
         }
 
         if (Input.GetKeyDown(KeyCode.G))
