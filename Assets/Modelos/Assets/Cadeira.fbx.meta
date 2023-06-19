@@ -3,7 +3,22 @@ guid: 99ae66b990228954ab049d8bc2366c6b
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Espuma
+    second: {fileID: 2100000, guid: 5d6b531d2c0e3594e8490b42c37bfb75, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 18fc04b1c408e244b8c33e592721a828, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rodado
+    second: {fileID: 2100000, guid: 87cb62423a8615a4a94c624d6bdc7d8f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
