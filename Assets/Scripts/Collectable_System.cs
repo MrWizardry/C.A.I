@@ -6,13 +6,14 @@ using UnityEngine.UI;
 
 public class Collectable_System : MonoBehaviour
 {
-    [SerializeField] private Sprite collectedIcon;
+    public Sprite collectedIcon; // The icon to display when the object is collected
+
     private bool isCollected;
-    private Image collectedImage;
+    private Image collectedObjectIcon;
 
     private void Start()
     {
-        collectedImage = ScoreManager.Instance.CollectedImage;
+        collectedObjectIcon = ScoreManager.Instance.GetNextCollectedObjectIcon();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -20,6 +21,7 @@ public class Collectable_System : MonoBehaviour
         if (other.CompareTag("Player") && !isCollected)
         {
             Collect();
+            GameObject.FindObjectOfType<LevelManager>().CollectObject(); // Call the CollectObject method in LevelManager
         }
     }
 
@@ -27,9 +29,11 @@ public class Collectable_System : MonoBehaviour
     {
         isCollected = true;
 
-        collectedImage.sprite = collectedIcon;
-        collectedImage.gameObject.SetActive(true);
-        
+        // Update UI to show collected object icon
+        collectedObjectIcon.sprite = collectedIcon;
+        collectedObjectIcon.gameObject.SetActive(true);
+
+        // Remove the collectible from the scene
         Destroy(gameObject);
     }
 }

@@ -73,10 +73,6 @@ public class ThirdPersonMovement : MonoBehaviour
             animator.SetBool("IsRunning", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            Application.Quit();
-        }
     }
 
     private void RotatePlayer(Vector3 direction)
