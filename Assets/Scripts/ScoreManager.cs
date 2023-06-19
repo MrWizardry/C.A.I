@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class ScoreManager : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
 
-    private int score;
+    public Image CollectedImage;
 
     private void Awake()
     {
@@ -21,22 +22,5 @@ public class ScoreManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    private void Start()
-    {
-        score = 0;
-        UpdateScoreText();
-    }
-
-    public void IncreaseScore(int value)
-    {
-        score += value;
-        UpdateScoreText();
-    }
-
-    private void UpdateScoreText()
-    {
-        scoreText.text = "Score: " + score.ToString();
     }
 }

@@ -2,25 +2,33 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Collectable_System : MonoBehaviour
 {
-    [SerializeField] private int scoreValue = 1;
+    [SerializeField] private Sprite collectedIcon;
+    private bool isCollected;
+    private Image collectedImage;
 
-    public GameObject collectEffect;
+    private void Start()
+    {
+        collectedImage = ScoreManager.Instance.CollectedImage;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isCollected)
+        {
             Collect();
+        }
     }
 
     private void Collect()
     {
-        ScoreManager.Instance.IncreaseScore(scoreValue);
+        isCollected = true;
 
-        if (collectEffect != null)
-            Instantiate(collectEffect, transform.position, Quaternion.identity);
+        collectedImage.sprite = collectedIcon;
+        collectedImage.gameObject.SetActive(true);
         
         Destroy(gameObject);
     }
