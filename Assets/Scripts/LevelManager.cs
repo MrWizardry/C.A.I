@@ -23,6 +23,6 @@ public class LevelManager : MonoBehaviour
 
     private void ReturnToMenu()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Victory[]");
     }
 }

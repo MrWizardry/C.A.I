@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class Enemy_Follow : MonoBehaviour
 {
@@ -25,6 +26,11 @@ public class Enemy_Follow : MonoBehaviour
         {
             _agent.SetDestination(player.position);
             _hasReachedPlayer = true;
+            if(_hasReachedPlayer == true)
+            {
+                SceneManager.LoadScene("Derrota[]");
+            }
+
         }
         else if (_hasReachedPlayer)
         {
