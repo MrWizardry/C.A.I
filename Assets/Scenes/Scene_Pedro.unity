@@ -15895,7 +15895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 224443f784a6cbf47ab09967b516c5fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalObjectsToCollect: 1
+  totalObjectsToCollect: 3
 --- !u!4 &1289591578
 Transform:
   m_ObjectHideFlags: 0

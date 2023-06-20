@@ -16,13 +16,13 @@ public class LevelManager : MonoBehaviour
         // Check if all objects have been collected
         if (collectedObjectCount >= totalObjectsToCollect)
         {
-            Cursor.visible = true;
             ReturnToMenu();
         }
     }
 
     private void ReturnToMenu()
     {
+        Cursor.visible = true;
         SceneManager.LoadScene("Victory[]");
     }
 }

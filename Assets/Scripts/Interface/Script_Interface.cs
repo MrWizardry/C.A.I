@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Script_Interface : MonoBehaviour
 {
+    private void Awake()
+    {
+        Cursor.visible = true;
+    }
+
     public void OnStartClick()
     {
         SceneManager.LoadScene("Scenes/Scene_Pedro");
