@@ -26,11 +26,11 @@ public class ThirdPersonMovement : MonoBehaviour
     private bool isRunning = false;
     private float currentStamina;
 
-    private void Start()
+    private void Awake()
     {
         Cursor.visible = false;
         currentStamina = maxStamina;
-        
+
         UpdateStaminaSlider();
     }
 
