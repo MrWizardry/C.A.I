@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class Patrol_Route : MonoBehaviour
 {
@@ -50,6 +51,7 @@ public class Patrol_Route : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isFollowingPlayer = true;
+            SceneManager.LoadScene("Menu");
             agent.SetDestination(player.position);
         }
     }
