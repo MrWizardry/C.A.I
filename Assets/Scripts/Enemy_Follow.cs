@@ -24,13 +24,9 @@ public class Enemy_Follow : MonoBehaviour
     {
         if (_canSeePlayer)
         {
-            _agent.SetDestination(player.position);
-            _hasReachedPlayer = true;
-            if(_hasReachedPlayer == true)
-            {
-                SceneManager.LoadScene("Derrota[]");
-            }
-
+            //_agent.SetDestination(player.position);
+            //_hasReachedPlayer = true;
+            SceneManager.LoadScene("Derrota[]");
         }
         else if (_hasReachedPlayer)
         {

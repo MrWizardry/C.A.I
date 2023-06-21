@@ -51,7 +51,7 @@ public class Patrol_Route : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isFollowingPlayer = true;
-            SceneManager.LoadScene("Menu");
+            SceneManager.LoadScene("Derrota[]");
             agent.SetDestination(player.position);
         }
     }

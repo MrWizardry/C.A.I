@@ -13,7 +13,7 @@ EditorBuildSettings:
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/Derrota[].unity
-    guid: 1049062c78fdc1745a1358cebe63ebef
+    guid: 929ea5327ed184046aeab8cd6e549358
   - enabled: 1
     path: Assets/Scenes/Victory[].unity
     guid: 85c958b2ae68bfe458b1ba95debc52c5
