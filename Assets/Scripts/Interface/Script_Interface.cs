@@ -12,7 +12,12 @@ public class Script_Interface : MonoBehaviour
 
     public void OnStartClick()
     {
-        SceneManager.LoadScene("Explicação");
+        SceneManager.LoadScene("Explication");
+    }
+
+    public void GoGame()
+    {
+        SceneManager.LoadScene("Scene_Pedro");
     }
 
     public void OnExitClick()

@@ -71,7 +71,6 @@ public class ThirdPersonMovement : MonoBehaviour
             Debug.Log("No Energy");
             animator.SetBool("IsRunning", false);
         }
-
     }
 
     private void RotatePlayer(Vector3 direction)
@@ -82,7 +81,7 @@ public class ThirdPersonMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
         float mouseX = Input.GetAxis("Mouse X") * cameraSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * cameraSensitivity;
+        float mouseY = -Input.GetAxis("Mouse Y") * cameraSensitivity; // Invert the mouse movement here
 
         cam.Rotate(Vector3.up, mouseX, Space.World);
         cam.Rotate(Vector3.left, mouseY, Space.Self);
@@ -93,7 +92,12 @@ public class ThirdPersonMovement : MonoBehaviour
         float currentSpeed = isRunning ? runSpeed : walkSpeed;
 
         Vector3 moveDir = Quaternion.Euler(0f, cam.eulerAngles.y, 0f) * direction;
-        controller.Move(moveDir.normalized * (currentSpeed * Time.deltaTime * sensitivity));
+        Vector3 newPosition = transform.position + moveDir.normalized * (currentSpeed * Time.deltaTime * sensitivity);
+
+        // Limit the Y-axis position
+        newPosition.y = Mathf.Clamp(newPosition.y, 0f, 1.044f); // Adjust the values as per your requirement
+
+        controller.Move(newPosition - transform.position);
     }
 
     private void UpdateStamina()
